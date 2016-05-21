@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_gravity="center"
+    android:gravity="center"
+    android:orientation="vertical"
+    android:padding="20dp"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:card_view="http://schemas.android.com/apk/res-auto"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:background="@color/colorPrimaryDark">
+
+    <android.support.v7.widget.CardView
+        xmlns:card_view="http://schemas.android.com/apk/res-auto"
+        android:id="@+id/card_view"
+        android:layout_gravity="center"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        card_view:cardCornerRadius="4dp"
+        card_view:cardElevation="10dp">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:gravity="center"
+            android:layout_margin="20dp"
+            android:orientation="vertical">
+
+            <com.rengwuxian.materialedittext.MaterialEditText
+                android:id="@+id/userid"
+                android:layout_width="250dp"
+                android:layout_height="70dp"
+                android:hint="User Id"
+                android:textSize="12sp"
+                android:layout_margin="5dp"
+                app:met_baseColor="@android:color/black"
+                app:met_maxCharacters="30"
+                app:met_primaryColor="#000000"
+                app:met_singleLineEllipsis="true"
+                app:met_helperText="Username"
+                app:met_textColorHint="#b6b6b4"
+                app:met_errorColor="#ff0000"
+                app:met_helperTextColor="#795548"
+                app:met_underlineColor="#000000"
+                app:met_floatingLabelTextColor="#003587"
+                android:minHeight="20dp"
+                android:maxHeight="35dp" />
+            <com.rengwuxian.materialedittext.MaterialEditText
+                android:id="@+id/password"
+                android:layout_width="250dp"
+                android:layout_height="70dp"
+                android:hint="Password"
+                android:textSize="12sp"
+                android:layout_margin="5dp"
+                app:met_baseColor="@android:color/black"
+                app:met_maxCharacters="30"
+                app:met_primaryColor="#000000"
+                app:met_singleLineEllipsis="true"
+                android:inputType="textPassword"
+                app:met_helperText="Password"
+                app:met_textColorHint="#b6b6b4"
+                app:met_errorColor="#ff0000"
+                app:met_helperTextColor="#795548"
+                app:met_underlineColor="#000000"
+                app:met_floatingLabelTextColor="#003587"
+                android:minHeight="20dp"
+                android:maxHeight="35dp" />
+            <com.dd.CircularProgressButton
+                android:id="@+id/loginBtn"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textColor="#ffffff"
+                android:textSize="18sp"
+                app:cpb_cornerRadius="48dp"
+                android:layout_marginTop="20dp"
+                app:cpb_iconComplete="@drawable/correct"
+                app:cpb_iconError="@drawable/wrong"
+                app:cpb_textIdle="Login"
+                />
+        </LinearLayout>
+
+    </android.support.v7.widget.CardView>
+</LinearLayout>
