@@ -32,7 +32,6 @@
             </intent-filter>
         </activity>
         <activity android:name=".ScanCodeCollector" />
-        <activity android:name=".RequestAcceptPage"></activity>
     </application>
 
 </manifest>

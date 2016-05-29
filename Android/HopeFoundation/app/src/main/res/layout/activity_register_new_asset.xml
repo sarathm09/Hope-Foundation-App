@@ -44,6 +44,7 @@
                 android:orientation="vertical"
                 android:layout_marginTop="30dp"
                 >
+
                 <com.rengwuxian.materialedittext.MaterialEditText
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
@@ -89,11 +90,17 @@
                         android:gravity="center_vertical|left"
                         android:textColor="@color/primary_text"
                         android:layout_weight="1"/>
-                    <EditText
-                        android:id="@+id/register.quantity"
+                    <biz.kasual.materialnumberpicker.MaterialNumberPicker
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
-                        android:inputType="number"
+                        android:id="@+id/register.quantity"
+                        app:npMinValue="1"
+                        app:npMaxValue="5000"
+                        app:npDefaultValue="1"
+                        app:npBackgroundColor="@android:color/transparent"
+                        app:npSeparatorColor="#ccc"
+                        app:npTextColor="@color/colorPrimary"
+                        app:npTextSize="20sp"
                         android:layout_weight="2"/>
                 </LinearLayout>
 

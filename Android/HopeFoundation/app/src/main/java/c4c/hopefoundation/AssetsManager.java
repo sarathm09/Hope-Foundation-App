@@ -1,7 +1,10 @@
 package c4c.hopefoundation;
 
+import android.Manifest;
+import android.app.Activity;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.graphics.Typeface;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.GridLayoutManager;
@@ -33,7 +36,7 @@ import org.json.JSONObject;
 
 import c4c.hopefoundation.adapters.AssetsManagerAdapter;
 
-public class AssetsManager extends AppCompatActivity {
+public class AssetsManager extends Activity {
 
     RecyclerView assetList;
     private String location;
@@ -48,22 +51,9 @@ public class AssetsManager extends AppCompatActivity {
         location = pref.getString("loc", "");
         user = pref.getString("user", "");
 
-        ((TextView) findViewById(R.id.assets_location)).setText(location);
-
-        addNavigationBar();
+//        addNavigationBar();
         applyTheme();
         initialiseList();
-    }
-
-    private void initialiseList() {
-
-        assetList = (RecyclerView) findViewById(R.id.asset_manager_asset_list);
-
-
-        assetList.setLayoutManager(new GridLayoutManager(this, 2));
-        assetList.setHasFixedSize(true);
-
-        fetchData();
 
         findViewById(R.id.asset_add_item).setOnClickListener(new View.OnClickListener() {
             @Override
@@ -71,6 +61,21 @@ public class AssetsManager extends AppCompatActivity {
                 startActivity(new Intent(AssetsManager.this, RegisterNewAsset.class));
             }
         });
+        findViewById(R.id.assets_back).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                finish();
+            }
+        });
+    }
+
+    private void initialiseList() {
+
+        assetList = (RecyclerView) findViewById(R.id.asset_manager_asset_list);
+        assetList.setLayoutManager(new GridLayoutManager(this, 2));
+        assetList.setHasFixedSize(true);
+
+        fetchData();
     }
 
     private void fetchData() {
@@ -81,7 +86,7 @@ public class AssetsManager extends AppCompatActivity {
                 .setCallback(new FutureCallback<Response<JsonArray>>() {
                     @Override
                     public void onCompleted(Exception e, Response<JsonArray> result) {
-                        if(e == null){
+                        if (e == null) {
                             try {
                                 JSONArray results = new JSONArray(result.getResult().toString());
                                 assetList.setAdapter(new AssetsManagerAdapter(results, AssetsManager.this, AssetsManager.this, assetList));
@@ -140,10 +145,13 @@ public class AssetsManager extends AppCompatActivity {
     }
 
     private void applyTheme() {
+
         SystemBarTintManager tm = new SystemBarTintManager(this);
         tm.setTintColor(getResources().getColor(R.color.primary_dark));
         tm.setNavigationBarTintEnabled(true);
         tm.setStatusBarTintEnabled(true);
+
+        ((TextView)findViewById(R.id.asset_manager_title_text)).setTypeface(Typeface.createFromAsset(getAssets(), "fonts/heading.ttf"));
 
         ((Toolbar) findViewById(R.id.assets_toolbar)).setBackgroundColor(getResources().getColor(R.color.primary_dark));
     }

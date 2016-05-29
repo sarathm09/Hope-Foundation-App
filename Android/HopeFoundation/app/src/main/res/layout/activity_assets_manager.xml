@@ -16,57 +16,69 @@
             android:layout_height="wrap_content"
             android:id="@+id/assets.toolbar"
             android:background="@color/primary_dark">
-
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="horizontal"
+                android:gravity="left|center_vertical">
+                <ImageView
+                    android:layout_width="25dp"
+                    android:layout_height="25dp"
+                    android:id="@+id/assets.back"
+                    android:layout_gravity="right|center_vertical"
+                    android:src="@drawable/ic_arrow_back_white_24dp" />
+            </LinearLayout>
             </android.support.v7.widget.Toolbar>
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:background="@color/primary_dark"
-                android:layout_weight="5"/>
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_weight="2"/>
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:background="@color/primary_dark"
-                android:layout_weight="7"/>
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="150dp"
+            android:background="@color/primary_dark"
+            android:layout_gravity="top"
+            android:gravity="top"/>
+        <Space
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="20dp"
+            android:layout_gravity="bottom"
+            android:gravity="bottom"
+            android:background="@color/primary_dark"/>
         </LinearLayout>
-        <LinearLayout
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+        <TextView
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:orientation="vertical">
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:text="@string/app_name"
-                android:layout_gravity="center"
-                android:gravity="center"
-                android:textColor="@color/icons"
-                android:textStyle="bold"
-                android:textSize="25sp"
-                android:layout_weight="6"/>
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:text="{location}"
-                android:id="@+id/assets.location"
-                android:textColor="@color/divider"
-                android:textStyle="bold"
-                android:textSize="16sp"
-                android:gravity="center_horizontal"
-                android:layout_weight="2"/>
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_weight="6"/>
-        </LinearLayout>
+            android:id="@+id/asset.manager.title.text"
+            android:text="@string/app_name"
+            android:layout_gravity="center"
+            android:gravity="center"
+            android:paddingTop="20dp"
+            android:textColor="@color/icons"
+            android:textStyle="bold"
+            android:textSize="25sp"
+            android:layout_weight="6"/>
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:textColor="@color/divider"
+            android:textStyle="bold"
+            android:textSize="16sp"
+            android:gravity="center_horizontal"
+            android:layout_weight="2"/>
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="6"/>
+    </LinearLayout>
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:orientation="vertical"
-            android:layout_marginTop="150dp"
+            android:layout_marginTop="110dp"
             android:layout_marginRight="7dp"
             android:layout_marginLeft="7dp"
             android:layout_marginBottom="10dp"
@@ -75,12 +87,12 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             app:cardCornerRadius="10dp"
-            app:cardElevation="3dp"
+            app:cardElevation="7dp"
             android:layout_weight="3">
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:padding="10dp">
+                android:padding="3dp">
                 <android.support.v7.widget.RecyclerView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -94,7 +106,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_gravity="right"
-        android:layout_marginTop="117dp"
+        android:layout_marginTop="77dp"
         android:layout_marginRight="20dp"
         android:src="@drawable/ic_add_circle_outline_white_48dp"
         fab:fab_colorNormal="@color/accent"

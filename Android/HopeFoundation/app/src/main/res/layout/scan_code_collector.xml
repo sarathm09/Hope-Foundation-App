@@ -1,77 +1,187 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:layout_gravity="center"
     android:gravity="center"
-    android:background="@color/colorPrimaryDark">
-    <android.support.v7.widget.CardView
+    android:background="@color/primary_lighter"
+    android:fitsSystemWindows="true">
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        app:cardCornerRadius="5dp"
-        app:cardElevation="5dp"
-        android:layout_margin="10dp">
-        <LinearLayout
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:fitsSystemWindows="true">
+        <android.support.v7.widget.Toolbar
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:orientation="vertical"
-            android:layout_margin="20dp">
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="Select the number of Assets"
-                android:textColor="@color/primary_dark"
-                android:textSize="12sp"
-                android:gravity="center"
-                android:layout_margin="10dp"/>
-            <EditText
-                android:id="@+id/code.collect.quantity"
-                android:layout_width="90dp"
-                android:layout_gravity="center"
-                android:gravity="center"
-                android:layout_height="wrap_content"
-                android:inputType="number"/>
-            <Button
-                android:id="@+id/code.collect.start"
-                android:layout_width="match_parent"
-                android:layout_margin="20dp"
-                android:layout_height="64dp"
-                android:layout_marginLeft="20dp"
-                android:layout_marginRight="20dp"
-                android:layout_marginTop="16dp"
-                android:textColor="@color/icons"
-                android:textSize="18sp"
-                android:text="Scan"
-                android:background="@color/primary_dark"
-                />
+            android:layout_height="wrap_content"
+            android:id="@+id/code.collect.toolbar"
+            android:background="@color/primary_dark">
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="match_parent"
                 android:orientation="horizontal"
-                android:id="@+id/code.collect.status">
+                android:gravity="left|center_vertical">
+                <ImageView
+                    android:layout_width="25dp"
+                    android:layout_height="25dp"
+                    android:id="@+id/assets.back"
+                    android:layout_gravity="right|center_vertical"
+                    android:src="@drawable/ic_arrow_back_white_24dp" />
+            </LinearLayout>
+        </android.support.v7.widget.Toolbar>
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="150dp"
+            android:background="@color/primary_dark"
+            android:layout_gravity="top"
+            android:gravity="top"/>
+        <Space
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="20dp"
+            android:layout_gravity="bottom"
+            android:gravity="bottom"
+            android:background="@color/primary_dark"/>
+    </LinearLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:id="@+id/code.collect.title.text"
+            android:text="@string/app_name"
+            android:layout_gravity="center"
+            android:gravity="center"
+            android:paddingTop="20dp"
+            android:textColor="@color/icons"
+            android:textStyle="bold"
+            android:textSize="25sp"
+            android:layout_weight="6"/>
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:textColor="@color/divider"
+            android:textStyle="bold"
+            android:textSize="16sp"
+            android:text="{SubTitle}"
+            android:id="@+id/code.collect.subtitle"
+            android:gravity="center_horizontal"
+            android:layout_weight="2"/>
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="6"/>
+    </LinearLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:layout_marginTop="150dp">
+        <android.support.v7.widget.CardView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:cardCornerRadius="5dp"
+            android:layout_margin="7dp"
+            app:cardElevation="8dp">
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_margin="10dp"
+                android:orientation="horizontal">
                 <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical"
                     android:layout_weight="1"
-                    android:orientation="vertical">
+                    android:gravity="center">
                     <TextView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:textSize="45sp"
+                        android:textSize="65sp"
                         android:textColor="@color/md_green_700"
+                        android:text="{0}"
                         android:gravity="center"
-                        android:id="@+id/code.collect.remaining"/>
+                        android:id="@+id/code.collect.scanned"/>
                     <TextView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:gravity="center"
-                        android:text="Remaining"/>
+                        android:layout_marginTop="5dp"
+                        android:text="Codes\nScanned"/>
                 </LinearLayout>
-
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical"
+                    android:layout_weight="1">
+                    <Button
+                        android:id="@+id/code.collect.start"
+                        android:layout_width="match_parent"
+                        android:layout_height="50dp"
+                        android:layout_marginLeft="3dp"
+                        android:layout_marginRight="3dp"
+                        android:layout_marginTop="5dp"
+                        android:layout_marginBottom="5dp"
+                        android:textColor="@color/icons"
+                        android:textSize="18sp"
+                        android:text="Scan"
+                        android:background="@color/primary"
+                        />
+                    <Button
+                        android:id="@+id/code.collect.stop"
+                        android:layout_width="match_parent"
+                        android:layout_height="50dp"
+                        android:layout_marginLeft="3dp"
+                        android:layout_marginRight="3dp"
+                        android:layout_marginTop="5dp"
+                        android:layout_marginBottom="5dp"
+                        android:textColor="@color/icons"
+                        android:textSize="18sp"
+                        android:text="Done"
+                        android:background="@color/primary"
+                        />
+                </LinearLayout>
             </LinearLayout>
-        </LinearLayout>
-    </android.support.v7.widget.CardView>
-
-</LinearLayout>
+        </android.support.v7.widget.CardView>
+        <android.support.v7.widget.CardView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:cardCornerRadius="5dp"
+            app:cardElevation="8dp"
+            android:layout_marginLeft="7dp"
+            android:layout_marginRight="7dp"
+            android:layout_marginBottom="7dp"
+            android:id="@+id/code.collect.status"
+            >
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical"
+                android:layout_margin="20dp">
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Details of scanned assets"
+                    android:textColor="@color/primary_dark"
+                    android:textSize="20sp"
+                    android:textStyle="italic"
+                    android:gravity="center"
+                    android:layout_margin="10dp"/>
+                <de.codecrafters.tableview.SortableTableView
+                    android:id="@+id/code.collect.table"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    app:tableView_columnCount="3"
+                    app:tableView_headerElevation="10"
+                    app:tableView_headerColor="@color/primary_light"
+                    android:layout_margin="3dp"/>
+            </LinearLayout>
+        </android.support.v7.widget.CardView>
+    </LinearLayout>
+</FrameLayout>

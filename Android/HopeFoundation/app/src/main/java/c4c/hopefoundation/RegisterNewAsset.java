@@ -21,21 +21,21 @@ import com.koushikdutta.ion.Ion;
 import com.koushikdutta.ion.Response;
 import com.rengwuxian.materialedittext.MaterialEditText;
 import com.toptoche.searchablespinnerlibrary.SearchableSpinner;
-import com.vi.swipenumberpicker.OnValueChangeListener;
-import com.vi.swipenumberpicker.SwipeNumberPicker;
+
+import biz.kasual.materialnumberpicker.MaterialNumberPicker;
 
 public class RegisterNewAsset extends Activity {
 
     SearchableSpinner category, assetType;
     MaterialEditText source;
-    EditText quant;
+    MaterialNumberPicker quant;
     String location;
     ArrayAdapter<String> assetTypeArrayAdapter;
     CircularProgressButton registerBtn;
 
     String categories[] = {"Furniture", "Electronics", "Stationary", "Lab Equipment", "Other"};
     String cat_furniture[] = {"Table","Chair","Cupboard"};
-    String cat_electronics[] = {"Laptop","CPU","Monitor","Projector","Printer","KeyBoard"};
+    String cat_electronics[] = {"Laptop","CPU","Monitor","Projector","Printer","Key Board"};
     String cat_stationary[] = {"WhiteBoard", "Marker"};
     String cat_equipment[] = {"Test Tube", "Microscope", "Globe"};
     String cat_other[] = {"test"};
@@ -44,7 +44,6 @@ public class RegisterNewAsset extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_register_new_asset);
-
 
             location = "Whitefield";
 
@@ -57,7 +56,7 @@ public class RegisterNewAsset extends Activity {
                 registerBtn.setProgress(50);
                 String cat = category.getSelectedItem().toString();
                 String asset = assetType.getSelectedItem().toString();
-                String quantity = String.valueOf(quant.getText());
+                String quantity = String.valueOf(quant.getValue());
                 String sourc = source.getText().toString();
 
                 JsonObject json = new JsonObject();
@@ -98,7 +97,7 @@ public class RegisterNewAsset extends Activity {
 
         category = (SearchableSpinner) findViewById(R.id.register_category);
         assetType = (SearchableSpinner) findViewById(R.id.register_assettype);
-        quant = (EditText) findViewById(R.id.register_quantity);
+        quant = (MaterialNumberPicker) findViewById(R.id.register_quantity);
         source = (MaterialEditText) findViewById(R.id.register_source);
 
         ArrayAdapter<String> categoryArrayAdapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, categories);

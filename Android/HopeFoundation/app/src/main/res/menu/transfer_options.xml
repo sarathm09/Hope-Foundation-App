@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item android:id="@+id/assets.transfer.recieve" android:title="Recieve Assets" android:icon="@drawable/asset_recieve"/>
+    <item android:id="@+id/assets.transfer.create" android:title="Create Assets" android:icon="@drawable/asset_reg"/>
+    <item android:id="@+id/assets.transfer.request" android:title="Request Assets" android:icon="@drawable/asset_request"/>
+</menu>
