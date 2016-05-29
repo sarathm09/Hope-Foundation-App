@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="WebServers">
+    <option name="servers">
+      <webServer id="2a977b77-aff8-4726-a2de-622ad553b019" name="RootoneC4C" url="http://ftp.rootone.xyz">
+        <fileTransfer host="ftp.rootone.xyz" port="21" password="dfc9df9edfc9dfc9df9edfc9" username="c4c@rootone.xyz">
+          <advancedOptions>
+            <advancedOptions dataProtectionLevel="Private" />
+          </advancedOptions>
+        </fileTransfer>
+      </webServer>
+    </option>
+  </component>
+</project>

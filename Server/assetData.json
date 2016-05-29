@@ -1,0 +1,46 @@
+{
+  "d":[
+    {
+      "assettype": "table",
+      "category": "furniture",
+      "available": "10",
+      "damaged": "6",
+      "description": "Some simple description about this item type"
+    },
+    {
+      "assettype": "monitor",
+      "category": "electronics",
+      "available": "5",
+      "damaged": "0",
+      "description": "Some simple description about this item type"
+    },
+    {
+      "assettype": "mouse",
+      "category": "electronics",
+      "available": "17",
+      "damaged": "0",
+      "description": "Some simple description about this item type"
+    },
+    {
+      "assettype": "chair",
+      "category": "furniture",
+      "available": "69",
+      "damaged": "3",
+      "description": "Some simple description about this item type"
+    },
+    {
+      "assettype": "vessel",
+      "category": "equipment",
+      "available": "38",
+      "damaged": "0",
+      "description": "Some simple description about this item type"
+    },
+    {
+      "assettype": "keyboard",
+      "category": "electronics",
+      "available": "19",
+      "damaged": "1",
+      "description": "Some simple description about this item type"
+    }
+  ]
+}
