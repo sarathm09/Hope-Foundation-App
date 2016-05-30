@@ -31,6 +31,8 @@ dependencies {
     compile 'com.github.dmytrodanylyk.circular-progress-button:library:1.1.3'
     compile 'com.readystatesoftware.systembartint:systembartint:1.0.3'
     compile 'com.dlazaro66.qrcodereaderview:qrcodereaderview:1.0.0'
+    compile 'com.github.devlight.navigationtabstrip:library:1.0.1'
+    compile 'com.google.android.gms:play-services-maps:9.0.0'
     compile 'com.rengwuxian.materialedittext:library:2.1.4'
     compile 'com.android.support:recyclerview-v7:23.2.0'
     compile 'de.codecrafters.tableview:tableview:2.0.1'

@@ -11,4 +11,6 @@
     <color name="divider">#B6B6B6</color>
     <color name="status_green">#64dd17</color>
     <color name="status_grey">#a1887f</color>
+    <color name="fab_red">#F44336</color>
+    <color name="fab_red_pressed">#b71c1c</color>
 </resources>

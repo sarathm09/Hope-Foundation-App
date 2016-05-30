@@ -22,6 +22,7 @@
         <activity android:name=".AssetDetailsPage" />
         <activity android:name=".RequestAssetActivity" />
         <activity android:name=".TransactionsHistoryActivity" />
+
         <activity
             android:name=".LoginPage"
             android:noHistory="true">
@@ -32,6 +33,12 @@
             </intent-filter>
         </activity>
         <activity android:name=".ScanCodeCollector" />
+        <meta-data
+            android:name="com.google.android.gms.version"
+            android:value="@integer/google_play_services_version" />
+        <meta-data
+            android:name="com.google.android.geo.API_KEY"
+            android:value="AIzaSyDdPHJl_Ue1zKHm7lE29cWFoJyw56rGHjg"/>
     </application>
 
 </manifest>

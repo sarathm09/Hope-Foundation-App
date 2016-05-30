@@ -14,6 +14,8 @@ import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.View;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -43,6 +45,7 @@ import com.mikepenz.materialdrawer.model.PrimaryDrawerItem;
 import com.mikepenz.materialdrawer.model.ProfileDrawerItem;
 import com.mikepenz.materialdrawer.model.interfaces.IDrawerItem;
 import com.readystatesoftware.systembartint.SystemBarTintManager;
+import com.toptoche.searchablespinnerlibrary.SearchableSpinner;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -67,11 +70,20 @@ public class HomeScreen extends Activity {
             Color.argb(150, 84, 110, 122),
             Color.argb(150, 255, 138, 101),
             Color.argb(150, 141, 110, 99)));
+    ArrayList <String> availableIds;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home_screen);
+
+        availableIds = new ArrayList<>();
+        availableIds.add("1");
+        availableIds.add("1asda");
+        availableIds.add("asdas1");
+        availableIds.add("1aasdasd");
+        availableIds.add("dfhgdfgdfg1");
+        availableIds.add("dsfgdsgf1");
 
         SharedPreferences pref = getSharedPreferences("cred", MODE_PRIVATE);
         location = pref.getString("loc", "");
@@ -91,6 +103,18 @@ public class HomeScreen extends Activity {
         addNavigationBar();
         manageButtonClicks();
 //        setChartData();
+
+        Ion.with(this)
+                .load("http://c4c.rootone.xyz/getLocCords.php")
+                .asJsonArray()
+                .withResponse()
+                .setCallback(new FutureCallback<Response<JsonArray>>() {
+                    @Override
+                    public void onCompleted(Exception e, Response<JsonArray> result) {
+                        SharedPreferences pref = HomeScreen.this.getSharedPreferences("loc", MODE_PRIVATE);
+                        pref.edit().putString("data", result.getResult().toString()).apply();
+                    }
+                });
 
     }
 
@@ -116,18 +140,20 @@ public class HomeScreen extends Activity {
         chartVals = new ArrayList<>();
 
         Ion.with(this)
-                .load("http://c4c.rootone.xyz/dummyJsons/dashboard.json")
-                .asJsonObject()
+                .load("http://c4c.rootone.xyz/get_location_overview.php?location=" + location)
+                .asJsonArray()
                 .withResponse()
-                .setCallback(new FutureCallback<Response<JsonObject>>() {
+                .setCallback(new FutureCallback<Response<JsonArray>>() {
                     @Override
-                    public void onCompleted(Exception e, Response<JsonObject> result) {
+                    public void onCompleted(Exception e, Response<JsonArray> result) {
                         if (e == null) {
                             try {
-                                JSONObject obj = new JSONObject(result.getResult().toString());
+                                JSONArray arr = new JSONArray(result.getResult().toString());
+                                JSONObject obj = arr.getJSONObject(0);
                                 chartVals.clear();
 
                                 ((TextView) findViewById(R.id.homescreen_total_assets)).setText(obj.getString("TotalCount"));
+                                ((TextView) findViewById(R.id.homescreen_blocked_count)).setText(obj.getString("Blocked"));
 
                                 chartVals.add(new Entry(Integer.parseInt(obj.getString("InUse")), 0));
                                 chartVals.add(new Entry(Integer.parseInt(obj.getString("NotInUse")), 1));

@@ -171,14 +171,14 @@
                                 android:textSize="30sp"
                                 android:text="{0}"
                                 android:textColor="@color/primary_text"
-                                android:id="@+id/homescreen.sometext.count"/>
+                                android:id="@+id/homescreen.blocked.count"/>
                             <TextView
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                                 android:layout_gravity="center"
                                 android:gravity="center"
                                 android:textSize="8sp"
-                                android:text="Some\nOther Count"
+                                android:text="Blocked\nAsset count"
                                 android:layout_margin="2dp"
                                 android:textColor="@color/secondary_text"/>
                         </LinearLayout>

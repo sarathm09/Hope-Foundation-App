@@ -50,6 +50,8 @@ public class RequestAssetActivity extends Activity {
     String[] data[] = {cat_furniture, cat_electronics, cat_stationary, cat_equipment, cat_other};
     int selection = 0;
     String location;
+    private String selAssetType;
+    private String selCategory;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -113,14 +115,31 @@ public class RequestAssetActivity extends Activity {
                         for (HashMap.Entry<String, Integer> entry : RequestManagerAdapter.ViewHolder.requestBody.entrySet()) {
                             String loc = entry.getKey();
                             Integer count = entry.getValue();
+
+                            JsonObject json = new JsonObject();
+                            json.addProperty("assetType", selAssetType);
+                            json.addProperty("category", selCategory);
+                            json.addProperty("from", location);
+                            json.addProperty("to", loc);
+                            json.addProperty("quantity", count.toString());
+
                             if(count != 0){
                                 Ion.with(RequestAssetActivity.this)
-                                        .load("")
+                                        .load("http://c4c.rootone.xyz/request_assets.php")
+                                        .setJsonObjectBody(json)
                                         .asJsonObject()
                                         .withResponse()
                                         .setCallback(new FutureCallback<Response<JsonObject>>() {
                                             @Override
                                             public void onCompleted(Exception e, Response<JsonObject> result) {
+                                                requestBtn.setProgress(100);
+                                                Toast.makeText(RequestAssetActivity.this, "Request Sent", Toast.LENGTH_SHORT).show();
+                                                new Handler().postDelayed(new Runnable() {
+                                                    @Override
+                                                    public void run() {
+                                                        RequestAssetActivity.this.finish();
+                                                    }
+                                                }, 1000);
 
                                             }
                                         });
@@ -195,6 +214,9 @@ public class RequestAssetActivity extends Activity {
         assetType.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, final int i, long l) {
+
+                selAssetType = data[selection][i];
+                selCategory = categories[selection];
 
                 Ion.with(RequestAssetActivity.this)
                         .load("http://c4c.rootone.xyz/assets_availability.php?location=" + location + "&assetType=" + data[selection][i])

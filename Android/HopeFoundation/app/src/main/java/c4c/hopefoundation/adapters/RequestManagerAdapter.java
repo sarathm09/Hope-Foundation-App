@@ -67,7 +67,7 @@ public class RequestManagerAdapter extends RecyclerView.Adapter<RequestManagerAd
             int index = assetsList.getChildPosition(view);
             try {
                 JSONObject data = mDataset.getJSONObject(index);
-                final String loc = data.getString("Location");
+                final String loc = data.getString("Owner");
                 int maxCount = Integer.parseInt(data.getString("AvailableCount"));
 
                 final MaterialNumberPicker numberPicker = new MaterialNumberPicker.Builder(context)
@@ -125,7 +125,7 @@ public class RequestManagerAdapter extends RecyclerView.Adapter<RequestManagerAd
         try {
             JSONObject offer = mDataset.getJSONObject(position);
 
-            holder.locName.setText(offer.getString("Location"));
+            holder.locName.setText(offer.getString("Owner"));
             holder.qty.setText(offer.getString("AvailableCount"));
             holder.breadcrumb.setText(this.breadCrumb);
             holder.status.setBackgroundColor(context.getResources().getColor(R.color.status_grey));

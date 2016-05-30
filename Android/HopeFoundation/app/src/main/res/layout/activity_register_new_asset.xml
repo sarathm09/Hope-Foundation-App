@@ -5,6 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/primary_lighter"
+    android:fitsSystemWindows="true"
     tools:context="c4c.hopefoundation.RegisterNewAsset">
     <LinearLayout
         android:layout_width="match_parent"
@@ -13,68 +14,224 @@
         <android.support.v7.widget.Toolbar
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@color/colorPrimaryDark"
-            android:textAlignment="center"
-            android:titleTextColor="@color/icons">
+            android:id="@+id/register.toolbar"
+            android:background="@color/primary_dark"
+            android:gravity="right|center_vertical">
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="horizontal"
+                android:gravity="left|center_vertical">
+                <ImageView
+                    android:layout_width="25dp"
+                    android:layout_height="25dp"
+                    android:id="@+id/register.back"
+                    android:layout_gravity="right|center_vertical"
+                    android:src="@drawable/ic_arrow_back_white_24dp" />
+            </LinearLayout>
         </android.support.v7.widget.Toolbar>
         <TextView
             android:layout_width="match_parent"
-            android:layout_height="250dp"
-            android:background="@color/colorPrimaryDark"
-            android:layout_gravity="center"
-            android:paddingBottom="80dp"
-            android:gravity="center"
-            android:textSize="30sp"
-            android:textColor="@color/icons"
-            android:text="Register Assets"/>
+            android:layout_height="150dp"
+            android:background="@color/primary_dark"
+            android:layout_gravity="top"
+            android:gravity="top"/>
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="20dp"
+            android:layout_gravity="bottom"
+            android:gravity="bottom"
+            android:background="@color/primary_dark"/>
     </LinearLayout>
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:padding="20dp"
-        android:layout_marginTop="150dp">
+        android:orientation="vertical">
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:id="@+id/register.title.text"
+            android:text="Register Assets"
+            android:layout_gravity="center"
+            android:gravity="center"
+            android:paddingTop="20dp"
+            android:textColor="@color/icons"
+            android:textStyle="bold"
+            android:textSize="25sp"
+            android:layout_weight="6"/>
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:id="@+id/register.location"
+            android:textColor="@color/divider"
+            android:textStyle="bold"
+            android:textSize="16sp"
+            android:gravity="center_horizontal"
+            android:layout_weight="2"/>
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="6"/>
+    </LinearLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginTop="90dp"
+        android:padding="7dp">
         <android.support.v7.widget.CardView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             app:cardCornerRadius="10dp"
-            app:cardElevation="3dp">
+            app:cardElevation="7dp">
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:orientation="vertical"
                 android:layout_marginTop="30dp"
                 >
-
-                <com.rengwuxian.materialedittext.MaterialEditText
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="5dp">
+                    <Button
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="Internal"
+                        android:id="@+id/request.button.internal"
+                        android:background="@color/primary"
+                        android:textColor="@color/icons"
+                        android:layout_weight="1"
+                        android:layout_marginLeft="20dp"/>
+                    <Button
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="External"
+                        android:id="@+id/request.button.external"
+                        android:background="@color/primary"
+                        android:textColor="@color/icons"
+                        android:layout_weight="1"
+                        android:layout_marginRight="20dp"/>
+                </LinearLayout>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:orientation="horizontal"
+                android:layout_marginLeft="20dp"
+                android:layout_marginRight="20dp"
+                android:id="@+id/register.source.block">
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:text="Source"
+                    android:textSize="15sp"
+                    android:layout_gravity="center_vertical|left"
+                    android:gravity="center_vertical|left"
+                    android:textColor="@color/primary_text"
+                    android:layout_weight="4"/>
+                <EditText
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:id="@+id/register.source"
-                    app:met_helperText="Source"
                     android:layout_marginLeft="15dp"
-                    android:layout_marginRight="15dp"
                     android:layout_weight="2"/>
-                <Space
+                </LinearLayout>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:orientation="horizontal"
+                android:layout_marginLeft="20dp"
+                android:layout_marginRight="20dp"
+                android:id="@+id/register.transaction.block">
+                <TextView
                     android:layout_width="match_parent"
-                    android:layout_height="20dp"
-                    />
-                <com.toptoche.searchablespinnerlibrary.SearchableSpinner
+                    android:layout_height="match_parent"
+                    android:text="Transaction ID"
+                    android:textSize="15sp"
+                    android:layout_gravity="center_vertical|left"
+                    android:gravity="center_vertical|left"
+                    android:textColor="@color/primary_text"
+                    android:layout_weight="4"/>
+                <EditText
                     android:layout_width="match_parent"
-                    android:layout_height="30dp"
-                    android:id="@+id/register.category"
-                    android:layout_margin="10dp"/>
-                <Space
+                    android:layout_height="match_parent"
+                    android:id="@+id/register.payment.id"
+                    android:layout_marginLeft="15dp"
+                    android:layout_weight="2"/>
+                </LinearLayout>
+                <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="20dp"
-                    />
-                <com.toptoche.searchablespinnerlibrary.SearchableSpinner
+                    android:layout_height="match_parent"
+                    android:orientation="vertical"
+                    android:layout_marginTop="10dp">
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:orientation="horizontal"
+                        android:layout_marginTop="7dp"
+                        android:layout_marginLeft="10dp"
+                        android:layout_marginRight="10dp"
+                        android:layout_marginBottom="3dp"
+                        >
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:gravity="center"
+                            android:text="Category"
+                            android:layout_weight="1"/>
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:gravity="center"
+                            android:text="Asset Type"
+                            android:layout_weight="1"/>
+                    </LinearLayout>
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:orientation="horizontal"
+                        android:layout_marginLeft="10dp"
+                        android:layout_marginRight="10dp"
+                        android:layout_marginBottom="15dp">
+                        <com.toptoche.searchablespinnerlibrary.SearchableSpinner
+                            android:layout_width="match_parent"
+                            android:layout_height="40dp"
+                            android:id="@+id/register.category"
+                            android:layout_marginLeft="10dp"
+                            android:layout_marginRight="3dp"
+                            android:layout_weight="1"
+                            android:background="#eee"/>
+                        <com.toptoche.searchablespinnerlibrary.SearchableSpinner
+                            android:layout_width="match_parent"
+                            android:layout_height="40dp"
+                            android:background="#eee"
+                            android:layout_weight="1"
+                            android:id="@+id/register.assettype"
+                            android:layout_marginLeft="3dp"
+                            android:layout_marginRight="10dp"/>
+                    </LinearLayout>
+                </LinearLayout>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:orientation="horizontal"
+                android:layout_marginLeft="20dp"
+                android:layout_marginRight="20dp">
+                <TextView
                     android:layout_width="match_parent"
-                    android:layout_height="30dp"
-                    android:id="@+id/register.assettype"
-                    android:layout_margin="10dp"/>
-                <Space
+                    android:layout_height="match_parent"
+                    android:text="Description"
+                    android:textSize="15sp"
+                    android:layout_gravity="center_vertical|left"
+                    android:gravity="center_vertical|left"
+                    android:textColor="@color/primary_text"
+                    android:layout_weight="4"/>
+                <EditText
                     android:layout_width="match_parent"
-                    android:layout_height="20dp"
-                    />
+                    android:layout_height="match_parent"
+                    android:id="@+id/register.desc"
+                    android:layout_marginLeft="15dp"
+                    android:layout_weight="2"/>
+                </LinearLayout>
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="70dp"
@@ -103,7 +260,27 @@
                         app:npTextSize="20sp"
                         android:layout_weight="2"/>
                 </LinearLayout>
-
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="70dp"
+                    android:orientation="horizontal"
+                    android:layout_marginLeft="20dp"
+                    android:layout_marginRight="20dp">
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:text="Depreciation Value"
+                        android:textSize="15sp"
+                        android:layout_gravity="center_vertical|left"
+                        android:gravity="center_vertical|left"
+                        android:textColor="@color/primary_text"
+                        android:layout_weight="1"/>
+                    <EditText
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:id="@+id/register.depreciation"
+                        android:layout_weight="2"/>
+                </LinearLayout>
                 <Space
                     android:layout_width="match_parent"
                     android:layout_height="20dp"

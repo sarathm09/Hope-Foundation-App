@@ -10,6 +10,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.cocosw.bottomsheet.BottomSheet;
 import com.squareup.picasso.Picasso;
@@ -18,6 +19,7 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import c4c.hopefoundation.AssetDetailsPage;
 import c4c.hopefoundation.R;
 
 /**
@@ -44,7 +46,6 @@ public class TransactionManagerAdapter extends RecyclerView.Adapter<TransactionM
             category = (TextView) v.findViewById(R.id.transaction_item_category);
             asId = (TextView) v.findViewById(R.id.transaction_item_asset_id);
             time = (TextView) v.findViewById(R.id.transaction_item_date);
-
         }
     }
     public TransactionManagerAdapter(JSONArray myDataset, Activity activity, Context c, RecyclerView offersList) {

@@ -1,6 +1,8 @@
 package c4c.hopefoundation;
 
 import android.app.Activity;
+import android.app.Notification;
+import android.app.NotificationManager;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Typeface;
@@ -10,23 +12,18 @@ import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
-import android.widget.EditText;
-import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.gson.JsonObject;
-import com.google.zxing.common.StringUtils;
 import com.koushikdutta.async.future.FutureCallback;
 import com.koushikdutta.ion.Ion;
 import com.koushikdutta.ion.Response;
 import com.readystatesoftware.systembartint.SystemBarTintManager;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 
 import de.codecrafters.tableview.SortableTableView;
-import de.codecrafters.tableview.TableHeaderAdapter;
 import de.codecrafters.tableview.toolkit.SimpleTableDataAdapter;
 import de.codecrafters.tableview.toolkit.SimpleTableHeaderAdapter;
 
@@ -44,7 +41,7 @@ public class ScanCodeCollector extends Activity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.scan_code_collector);
+        setContentView(R.layout.activity_scan_code_collector);
 
         SharedPreferences pref = getSharedPreferences("cred", MODE_PRIVATE);
         location = pref.getString("loc", "");
@@ -52,6 +49,13 @@ public class ScanCodeCollector extends Activity {
         referrer = getIntent().getExtras().getString("referrer");
         initialiseVars();
         applyTheme();
+
+        findViewById(R.id.code_collect_back).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                finish();
+            }
+        });
     }
 
     private void initialiseVars() {
@@ -89,6 +93,14 @@ public class ScanCodeCollector extends Activity {
         stop.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                Notification n  = new Notification.Builder(ScanCodeCollector.this)
+                        .setContentTitle("Changes Made")
+                        .setContentText("The requested changes have been made to the Asset(s).")
+                        .setSmallIcon(R.drawable.ic_save_white_24dp)
+                        .setAutoCancel(false).build();
+                NotificationManager notificationManager = (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
+                notificationManager.notify(0, n);
+
                 Toast.makeText(ScanCodeCollector.this, "Changes Made", Toast.LENGTH_SHORT).show();
                 finish();
             }
@@ -148,7 +160,7 @@ public class ScanCodeCollector extends Activity {
                 break;
             case "mark_used":
                 Ion.with(this)
-                        .load("http://c4c.rootone.xyz/mark_unused_asset.php?id=" + scannedVal)
+                        .load("http://c4c.rootone.xyz/toggle_asset_usages.php?id=" + scannedVal)
                         .asJsonObject()
                         .withResponse()
                         .setCallback(new FutureCallback<Response<JsonObject>>() {

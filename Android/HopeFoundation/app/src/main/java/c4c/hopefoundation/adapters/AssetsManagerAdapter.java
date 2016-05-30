@@ -56,8 +56,6 @@ public class AssetsManagerAdapter extends RecyclerView.Adapter<AssetsManagerAdap
             itembg = (ImageView) v.findViewById(R.id.asset_item_image);
             itemfab = (ImageView) v.findViewById(R.id.asset_item_fab);
 
-            v.setOnClickListener(this);
-
 
         }
 
@@ -67,30 +65,7 @@ public class AssetsManagerAdapter extends RecyclerView.Adapter<AssetsManagerAdap
             JSONObject offer = null;
             try {
                 offer = mDataset.getJSONObject(index);
-                new BottomSheet.Builder(activity)
-                        .title(offer.getString("AssetType"))
-                        .sheet(R.menu.asset_options)
-                        .listener(new DialogInterface.OnClickListener() {
-                            @Override
-                            public void onClick(DialogInterface dialog, int which) {
-                                switch (which) {
-                                    case R.id.assets_mark_damage:
-                                        Intent i = new Intent(context, ScanCodeCollector.class);
-                                        i.putExtra("referrer", "mark_damage");
-                                        context.startActivity(i);
-                                        break;
-                                    case R.id.assets_mark_unused:
-                                        Intent i2 = new Intent(context, ScanCodeCollector.class);
-                                        i2.putExtra("referrer", "mark_used");
-                                        context.startActivity(i2);
-                                        break;
-                                    case R.id.assets_delete:
 
-                                        break;
-                                }
-                            }
-                        })
-                        .show();
             } catch (JSONException e) {
                 e.printStackTrace();
             }
@@ -118,7 +93,7 @@ public class AssetsManagerAdapter extends RecyclerView.Adapter<AssetsManagerAdap
             JSONObject offer = mDataset.getJSONObject(position);
 
             Picasso.with(context)
-                    .load(R.drawable.drawer_bg)
+                    .load(offer.getString("ImageUrl"))
                     .fit()
                     .into(holder.itembg);
             holder.type.setText(offer.getString("AssetType"));

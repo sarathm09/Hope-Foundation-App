@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item android:id="@+id/details.by.qr" android:title="Scan QR of Asset" android:icon="@drawable/asset_recieve"/>
+    <item android:id="@+id/details.by.id" android:title="Enter Asset Id" android:icon="@drawable/asset_fab"/>
+</menu>

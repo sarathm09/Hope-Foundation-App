@@ -5,12 +5,14 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.gigamole.library.navigationtabstrip.NavigationTabStrip;
 import com.google.gson.JsonArray;
 import com.koushikdutta.async.future.FutureCallback;
 import com.koushikdutta.ion.Ion;
@@ -21,6 +23,7 @@ import org.json.JSONException;
 
 import c4c.hopefoundation.R;
 import c4c.hopefoundation.TransactionsHistoryActivity;
+import c4c.hopefoundation.adapters.AssetsManagerAdapter;
 import c4c.hopefoundation.adapters.TransactionManagerAdapter;
 
 public class AssetManagerPrimaryFragment extends Fragment {
@@ -28,6 +31,7 @@ public class AssetManagerPrimaryFragment extends Fragment {
     View view;
     Context context;
     String location;
+    RecyclerView assetList;
 
     RecyclerView trList;
 
@@ -46,15 +50,19 @@ public class AssetManagerPrimaryFragment extends Fragment {
     }
 
     private void initUi() {
+
         SharedPreferences pref = context.getSharedPreferences("cred", context.MODE_PRIVATE);
         location = pref.getString("loc", "");
+        assetList = (RecyclerView) view.findViewById(R.id.asset_manager_list_primary);
+        assetList.setLayoutManager(new GridLayoutManager(context, 2));
+        assetList.setHasFixedSize(true);
 
-        trList = (RecyclerView) view.findViewById(R.id.transactions_list);
 
-        trList.setLayoutManager(new LinearLayoutManager(context));
-        trList.setHasFixedSize(true);
+        String data="[{\"AssetType\":\"CPU\",\"Category\":\"Electronics\",\"ImageUrl\":\"http:\\/\\/c4c.rootone.xyz\\/Images\\/cpu.png\",\"Count\":\"3\",\"InUseCount\":\"3\",\"DamagedCount\":\"0\",\"UnusedCount\":\"0\"},{\"AssetType\":\"Laptop\",\"Category\":\"Electronics\",\"ImageUrl\":\"http:\\/\\/c4c.rootone.xyz\\/Images\\/laptop.png\",\"Count\":\"6\",\"InUseCount\":\"6\",\"DamagedCount\":\"0\",\"UnusedCount\":\"0\"},{\"AssetType\":\"Microscope\",\"Category\":\"Lab Equipment\",\"ImageUrl\":\"http:\\/\\/c4c.rootone.xyz\\/Images\\/microscope.png\",\"Count\":\"4\",\"InUseCount\":\"2\",\"DamagedCount\":\"0\",\"UnusedCount\":\"2\"},{\"AssetType\":\"Monitor\",\"Category\":\"Electronics\",\"ImageUrl\":\"http:\\/\\/c4c.rootone.xyz\\/Images\\/monitor.png\",\"Count\":\"21\",\"InUseCount\":\"20\",\"DamagedCount\":\"0\",\"UnusedCount\":\"1\"},{\"AssetType\":\"Printer\",\"Category\":\"Electronics\",\"ImageUrl\":\"http:\\/\\/c4c.rootone.xyz\\/Images\\/printer.png\",\"Count\":\"4\",\"InUseCount\":\"0\",\"DamagedCount\":\"0\",\"UnusedCount\":\"4\"},{\"AssetType\":\"Projector\",\"Category\":\"Electronics\",\"ImageUrl\":\"http:\\/\\/c4c.rootone.xyz\\/Images\\/projector.png\",\"Count\":\"8\",\"InUseCount\":\"7\",\"DamagedCount\":\"0\",\"UnusedCount\":\"1\"},{\"AssetType\":\"WhiteBoard\",\"Category\":\"Stationary\",\"ImageUrl\":\"http:\\/\\/c4c.rootone.xyz\\/Images\\/whiteboard.png\",\"Count\":\"2\",\"InUseCount\":\"2\",\"DamagedCount\":\"0\",\"UnusedCount\":\"0\"}]";
+        
+
         Ion.with(this)
-                .load("http://c4c.rootone.xyz/transaction_history.php?location=" + location)
+                .load("http://c4c.rootone.xyz/get_assets.php?location=" + location)
                 .asJsonArray()
                 .withResponse()
                 .setCallback(new FutureCallback<Response<JsonArray>>() {
@@ -63,7 +71,7 @@ public class AssetManagerPrimaryFragment extends Fragment {
                         if (e == null) {
                             try {
                                 JSONArray results = new JSONArray(result.getResult().toString());
-                                trList.setAdapter(new TransactionManagerAdapter(results, getActivity(), context, trList));
+                                assetList.setAdapter(new AssetsManagerAdapter(results, getActivity(), context, assetList));
                             } catch (JSONException e1) {
                                 e1.printStackTrace();
                             }

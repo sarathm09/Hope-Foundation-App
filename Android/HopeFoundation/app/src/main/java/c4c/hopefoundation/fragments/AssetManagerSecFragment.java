@@ -5,7 +5,7 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
-import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -20,16 +20,17 @@ import org.json.JSONArray;
 import org.json.JSONException;
 
 import c4c.hopefoundation.R;
-import c4c.hopefoundation.adapters.TransactionManagerAdapter;
+import c4c.hopefoundation.adapters.AssetsManagerAdapter;
 
 /**
  * Created by I323294 on 5/27/2016.
  */
-public class TransactionHistorySecFragment extends Fragment{
+public class AssetManagerSecFragment extends Fragment {
 
     View view;
     Context context;
     String location;
+    RecyclerView assetList;
 
     RecyclerView trList;
 
@@ -37,26 +38,28 @@ public class TransactionHistorySecFragment extends Fragment{
         this.context = context;
     }
 
-    public TransactionHistorySecFragment(){}
+    public AssetManagerSecFragment(){}
 
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        view = inflater.inflate(R.layout.frag_trans_manager_sec, container, false);
+        view = inflater.inflate(R.layout.frag_asset_manager_sec, container, false);
         initUi();
         return view;
     }
 
     private void initUi() {
+
         SharedPreferences pref = context.getSharedPreferences("cred", context.MODE_PRIVATE);
         location = pref.getString("loc", "");
+        assetList = (RecyclerView) view.findViewById(R.id.asset_manager_list_sec);
+        assetList.setLayoutManager(new GridLayoutManager(context, 2));
+        assetList.setHasFixedSize(true);
 
-        trList = (RecyclerView) view.findViewById(R.id.transaction_list_sec);
 
-        trList.setLayoutManager(new LinearLayoutManager(context));
-        trList.setHasFixedSize(true);
+
         Ion.with(this)
-                .load("http://c4c.rootone.xyz/transaction_history.php?location=" + location + "&type=external")
+                .load("http://c4c.rootone.xyz/get_assets.php?location=" + location + "&filter=transferred")
                 .asJsonArray()
                 .withResponse()
                 .setCallback(new FutureCallback<Response<JsonArray>>() {
@@ -65,7 +68,7 @@ public class TransactionHistorySecFragment extends Fragment{
                         if (e == null) {
                             try {
                                 JSONArray results = new JSONArray(result.getResult().toString());
-                                trList.setAdapter(new TransactionManagerAdapter(results, getActivity(), context, trList));
+                                assetList.setAdapter(new AssetsManagerAdapter(results, getActivity(), context, assetList));
                             } catch (JSONException e1) {
                                 e1.printStackTrace();
                             }
