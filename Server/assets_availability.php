@@ -13,7 +13,7 @@ if(!$location || !$assetType) {
 	echo json_encode($error); exit;
 }
 
-$query  =   "SELECT Location, COUNT(*) AvailableCount  FROM ASSETS WHERE Location != '$location' AND AssetType='$assetType' AND Status = '$status' GROUP BY AssetType, Location";
+$query  =   "SELECT Owner, COUNT(*) AvailableCount  FROM ASSETS WHERE Owner != '$location' AND AssetType='$assetType' AND Status = '$status' GROUP BY AssetType, Owner";
 
 connectDB();
 $fetch = mysqli_query($con, $query);

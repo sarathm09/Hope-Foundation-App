@@ -12,11 +12,11 @@ header('Content-Disposition: attachment; filename=spreadsheet.csv');
 $data = fopen('php://output', 'w');
 
 //Output Column Headings
-fputcsv($data,array('TID','AssetID', 'AssetType', 'Category', 'FromLocation', 'ToLocation', 'TimeStamp'));
+fputcsv($data,array('TID','AssetID', 'AssetType', 'Category', 'FromLocation', 'ToLocation', 'TimeStamp', 'Current Location', 'Status', 'Depreciation Value', 'Owner'));
 
 //Retrieve the data from database
 connectDB();
-$query = "SELECT * FROM TRANSACTIONS WHERE FromLocation = '$location' OR ToLocation = '$location' ORDER BY TimeStamp DESC LIMIT 20";
+$query = "SELECT t.*, a.Location, a.Status, a.DepreciationValue, a.Owner FROM TRANSACTIONS t, ASSETS a WHERE t.FromLocation = '$location' OR t.ToLocation = '$location' and a.ID=t.AssetID ORDER BY TimeStamp DESC";
 $rows = mysqli_query($con, $query);
 
 //Loop through the data to store them inside CSV

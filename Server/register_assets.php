@@ -5,35 +5,46 @@ header('Content-Type: application/json');
 
 # <<< To get JSON BOdy from POST Reuqest 
 $POST_JSON = file_get_contents('php://input');
-$POST_Body= json_decode( $POST_JSON, TRUE ); 
+$POST_Body = json_decode($POST_JSON, TRUE);
 # To get JSON BOdy from POST Reuqest >>>
 
 /* Request : 
 {
 	"assetType" : "Projector",
 	"category" : "Electronics",
-	"location" : "Whitefield",
+	"specifications" : "Some junk data... description etc.. "
+	"owner" : "Whitefield",
 	"quantity" : 10,
-	"source" : "SAP"
+	"source" : "SAP",
+	"status" : "IN_USE" // Or NOT_IN_USE
 }
 */
 
 # Params
 $assetType = $POST_Body["assetType"];
 $category = $POST_Body["category"];
-$location = $POST_Body["location"];
-$status = "IN_USE";
+$specifications = $POST_Body["specifications"];
+$owner = $POST_Body["owner"];
+$location = $POST_Body["owner"];
 $quantity = $POST_Body["quantity"];
 $source = $POST_Body["source"];
+$type = $POST_Body["type"];
+$status = $POST_Body["status"];
+$depr = $POST_Body["depreciation"];
 
-if(!$assetType || !$category || !$location || !$quantity || !$source) {
-	$error["error"] = "Invalid Request";
-	echo json_encode($error); exit;
+if (!$status)
+    $status = "IN_USE";
+
+if (!$assetType || !$category || !$specifications || !$owner || !$quantity || !$source || !$status) {
+    $error["error"] = "Invalid Request";
+    echo json_encode($error);
+    exit;
 }
 
 
 // Getting last inserted ID
 connectDB();
+
 $query = "SELECT ID FROM ASSETS ORDER BY ID DESC LIMIT 1";
 $fetch = mysqli_query($con, $query);
 $rows = mysqli_fetch_assoc($fetch);
@@ -48,19 +59,19 @@ $currentTransactionsCount = $rows['TID'];
 $newTransactionID = $currentTransactionsCount + 1;
 
 // Inserting New Items
-for($i = 1; $i <= $quantity; $i++) {
-	# Inserting new entry to DB
-	$query  =  "INSERT INTO ASSETS (AssetType, Category, Location, Status) VALUES ('$assetType', '$category', '$location', '$status')";
-	mysqli_query($con, $query);
+for ($i = 1; $i <= $quantity; $i++) {
+    # Inserting new entry to DB
+    $query = "INSERT INTO ASSETS (AssetType, Category, Specifications, Owner, Location, AssetSource, Status, DepreciationValue) VALUES ('$assetType', '$category', '$specifications', '$owner', '$location', '$type','$status', '$depr')";
+    mysqli_query($con, $query);
 
-	# >>>>> Generating QR Codes with IDs ($currentRowsCount+1 -> $currentRowsCount+$quantity
-	# Copying QR Code to Server's "QRCodes" Folder
-	$qr = $currentRowsCount + $i;
-	copy("https://api.qrserver.com/v1/create-qr-code/?data=$qr", "QRCodes/$qr.jpg");
+    # >>>>> Generating QR Codes with IDs ($currentRowsCount+1 -> $currentRowsCount+$quantity
+    # Copying QR Code to Server's "QRCodes" Folder
+    $qr = $currentRowsCount + $i;
+    copy("https://api.qrserver.com/v1/create-qr-code/?data=$qr", "QRCodes/$qr.jpg");
 
-	# Inserting into Transaction DB 
-	$query  =  "INSERT INTO TRANSACTIONS (TID, AssetID, AssetType, Category, FromLocation, ToLocation) VALUES ('$newTransactionID','$qr', '$assetType', '$category','$source', '$location')";
-	mysqli_query($con, $query);
+    # Inserting into Transaction DB
+    $query = "INSERT INTO TRANSACTIONS (TID, AssetID, AssetType, Category, FromLocation, ToLocation) VALUES ('$newTransactionID','$qr', '$assetType', '$category','$source', '$location')";
+    mysqli_query($con, $query);
 }
 
 disconnectDB();
@@ -72,7 +83,7 @@ $email_id = "p.rahulbhargav@gmail.com";
 $receiver = $email_id;
 $subject = "QR Codes for New Assets";
 $message =
-	'
+    '
 	<html>
 	<head>
 		<title> List of QR Codes </title>
@@ -83,22 +94,22 @@ $message =
 		</style>
 	</head>
 	<body>';
-	for($i = 1; $i <= $quantity; $i++) {
-		$qr = $currentRowsCount + $i;
-		$message.='<img src="c4c.rootone.xyz/QRCodes/'.$qr.'.jpg" alt="'.$qr.'"/>';
-	}
-	$message.='</body>
+for ($i = 1; $i <= $quantity; $i++) {
+    $qr = $currentRowsCount + $i;
+    $message .= '<img src="c4c.rootone.xyz/QRCodes/' . $qr . '.jpg" alt="' . $qr . '"/>';
+}
+$message .= '</body>
 	</html>
 	';
 
-$headers  = 'MIME-Version: 1.0' . "\r\n";
+$headers = 'MIME-Version: 1.0' . "\r\n";
 $headers .= 'Content-type: text/html; charset=iso-8859-1' . "\r\n";
 #generate email body>>>>>
 
 //<--******************************************************-->
 
 #<<<<<send email
-$send_email = mail($receiver,$subject,$message,$headers);
+$send_email = mail($receiver, $subject, $message, $headers);
 #send email>>>>>
 
 

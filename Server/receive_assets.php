@@ -45,6 +45,8 @@ if(!$result) {
 else {
 	$query  =  "INSERT INTO TRANSACTIONS (TID, AssetID, AssetType, Category, FromLocation, ToLocation) VALUES ('$newTransactionID','$assetID', '$assetType', '$category','$fromLocation', '$location')";
 	mysqli_query($con, $query);
+	$query  =  "INSERT INTO Notifications (Id, From, To, Message, Title, TimeStamp) VALUES (null,'$location', '$fromLocation', '$category','Assets Recieved at $location', 'now()')";
+	mysqli_query($con, $query);
 	disconnectDB();
 	$response["status"] = "success";
 	$response["AssetType"] = $assetType;
